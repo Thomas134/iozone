@@ -1408,7 +1408,7 @@ int client_error;
 
 char pit_hostname[40];
 char pit_service[8];
-int junk;
+int junk_iozone;
 
 /*
  * Host ports used to listen, and handle errors.
@@ -1986,7 +1986,7 @@ char **argv;
             }
             else
             {
-                            junk=fread(reply,IBUFSIZE-1,1,pi);
+                            junk_iozone=fread(reply,IBUFSIZE-1,1,pi);
                             pclose(pi);
                 m=reply;
                             while(*m) /* Strip new line */
@@ -19551,18 +19551,18 @@ int fd;
 
     /* Read a little of the file */
     if(direct_flag)
-        junk=read(fd,nbuff,page_size);
+        junk_iozone=read(fd,nbuff,page_size);
     else
-        junk=read(fd,nbuff,1);
+        junk_iozone=read(fd,nbuff,1);
 
     /* Skip into the file */
     I_LSEEK(fd,page_size,SEEK_SET);
 
     /* Read a little of the file */
     if(direct_flag)
-        junk=read(fd,nbuff,page_size);
+        junk_iozone=read(fd,nbuff,page_size);
     else
-        junk=read(fd,nbuff,1);
+        junk_iozone=read(fd,nbuff,1);
 
     /* Restore current position in file, before disruption */
     I_LSEEK(fd,current,SEEK_SET);
@@ -21390,7 +21390,7 @@ long long numrecs64, reclen;
           strcat(command,my_port_num);
         }
     strcat(command," '");
-    junk=system(command);
+    junk_iozone=system(command);
 /*
     system("remsh rsnperf '/home/capps/niozone/iozone -+s -t 1 -r 4 -s 8 -+c rsnperf'");
 
@@ -22912,7 +22912,7 @@ int client_flag;
             sp_location, (int)reclen/1024,
             (int)kilos,sp_master_host);
         /*printf("%s\n",sp_command);*/
-        junk=system(sp_command);
+        junk_iozone=system(sp_command);
         exit(0);
     }
     else
@@ -22988,7 +22988,7 @@ float throughput;
     char mybuf[1024];
     sprintf(mybuf,"%d %f",count, throughput);
     msfd=sp_start_child_send(sp_dest, port, &sp_my_cs_addr);
-    junk=write(msfd,mybuf,1024);
+    junk_iozone=write(msfd,mybuf,1024);
     if(cdebug)
     {
         fprintf(newstdout,"Sending result\n");
@@ -23728,7 +23728,7 @@ char *test;
            sprintf(command_line,"%s %s",imon_start,test);
         else
            sprintf(command_line,"%s %s&",imon_start,test);
-        junk=system(command_line);
+        junk_iozone=system(command_line);
     }
 }
 #ifdef HAVE_ANSIC_C
@@ -23746,7 +23746,7 @@ char *test;
            sprintf(command_line,"%s %s",imon_stop,test);
         else
            sprintf(command_line,"%s %s &",imon_stop,test);
-        junk=system(command_line);
+        junk_iozone=system(command_line);
     }
 }
 
@@ -24228,7 +24228,7 @@ static void pit( int sckt, struct timeval *tp)
    ** Send a datagram to the server to wake it up.  The content isn't
    ** important, but something must be sent to let it know we want the TOD.
    */
-   junk=write( sckt, "Are you there?", 14 );
+   junk_iozone=write( sckt, "Are you there?", 14 );
    /*
    ** Read the PIT from the remote host.
    */

@@ -55,7 +55,7 @@
 /* Middle Endian */
 #define ENDIAN_4  4
 
-int junk, *junkp;
+int junk_libbif, *junk_libbif_p;
 
 
 #ifdef HAVE_ANSIC_C
@@ -220,7 +220,7 @@ int fd;
 	bof.lo_version=0x0;
 	bof.hi_filetype=WORKSHEET;
 	bof.lo_filetype=0x0;
-	junk=write(fd,&bof,sizeof(struct bof_record));
+	junk_libbif=write(fd,&bof,sizeof(struct bof_record));
 }
 
 /*
@@ -252,7 +252,7 @@ int fd,val,row,column;
         intrec.lo_column=(char)(s_column>>8)&0xff;
         intrec.hi_data=(val & 0xff);
         intrec.lo_data=(val & 0xff00)>>8;
-	junk=write(fd,&intrec,13);
+	junk_libbif=write(fd,&intrec,13);
 }
 
 /* Note: This routine converts Big Endian to Little Endian 
@@ -338,8 +338,8 @@ int row,column;
 	   dptr[7]=0;
 	   printf("Excel output not supported on this architecture.\n");
 	}
-	junk=write(fd,&floatrec,11); /* Don't write floatrec. Padding problems */
-	junk=write(fd,&floatrec.data,8); /* Write value seperately */
+	junk_libbif=write(fd,&floatrec,11); /* Don't write floatrec. Padding problems */
+	junk_libbif=write(fd,&floatrec.data,8); /* Write value seperately */
 }
 
 /*
@@ -381,7 +381,7 @@ int row,column;
 	i=strlen(string);
 	strcpy(labelrec.str_array,string);
 
-	junk=write(fd,&labelrec,sizeof(struct label_record));
+	junk_libbif=write(fd,&labelrec,sizeof(struct label_record));
 
 }
 
@@ -398,7 +398,7 @@ int fd;
 {
 #endif
 	char buf[]={0x0a,0x00,0x00,0x00};
-	junk=write(fd,buf,4);
+	junk_libbif=write(fd,buf,4);
 }
 	
 /* 
